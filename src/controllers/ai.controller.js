@@ -13,7 +13,7 @@ const enhanceProfessionalSummaryController = async (req, res) => {
     console.log("OPENAI KEY EXISTS:", !!process.env.OPENAI_API_KEY)
     console.log("MODEL:", process.env.OPENAI_MODEL)
 
-    const response = await ai.responses.create({
+    const response = await ai.chat.completions.create({
       model: process.env.OPENAI_MODEL,
       messages: [
         {

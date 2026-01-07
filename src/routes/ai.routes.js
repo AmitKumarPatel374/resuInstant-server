@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.post("/enhance-pro-sum", authMiddleware,enhanceProfessionalSummaryController);
-router.post("/enhanced-job-desc", authMiddleware,enhanceJobDescriptionController);
+router.post("/enhance-job-desc", authMiddleware,enhanceJobDescriptionController);
 router.post("/upload-resume",authMiddleware,uploadResumeController );
 
 module.exports = router;
