@@ -119,7 +119,7 @@ const getUserResumeByIdController = async (req, res) => {
 
 const getResumeByPublicId = async (req, res) => {
   try {
-    const { resumeId } = req.Params
+    const { resumeId } = req.params
 
     if (!resumeId) {
       return res.status(404).json({
@@ -194,7 +194,7 @@ const updateResumeController = async (req, res) => {
     }
 
     return res.status(200).json({
-      message: "resume updated successfully!",
+      message: "Changes Saved successfully!",
       resume: updatedResume,
     })
   } catch (error) {
