@@ -2,6 +2,15 @@ require('dotenv').config();
 const express =require("express");
 const cookiesParser =require("cookie-parser");
 const cors =require("cors");
+
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    process.env.CLIENT_ORIGIN
+  ],
+  credentials: true,
+}));
+
 const connectDB = require("./src/config/database/db");
 const cacheInstance = require('./src/services/cache.service');
 
@@ -17,13 +26,7 @@ connectDB();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    process.env.CLIENT_ORIGIN
-  ],
-  credentials: true,
-}));
+
 
 app.use(cookiesParser());
 
