@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+import mongoose from "mongoose";
 
 const feedbackSchema = new mongoose.Schema(
   {
@@ -37,7 +37,7 @@ const feedbackSchema = new mongoose.Schema(
 
     // approved: {
     //   type: Boolean,
-    //   default: false, // only approved feedback shows in testimonials
+    //   default: false,
     // },
 
     source: {
@@ -47,8 +47,8 @@ const feedbackSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-)
+);
 
-const feedbackModel = mongoose.model("Feedback", feedbackSchema)
+const feedbackModel = mongoose.model("Feedback", feedbackSchema);
 
-module.exports = feedbackModel
+export default feedbackModel;

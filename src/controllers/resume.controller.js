@@ -1,7 +1,7 @@
-const resumeModel = require("../models/resume.model")
-const sendFilesToStorage = require("../services/storage.service")
+import resumeModel from "../models/resume.model.js"
+import sendFilesToStorage from "../services/storage.service.js"
 
-const getUserResumesController = async (req, res) => {
+export const getUserResumesController = async (req, res) => {
   try {
     const user = req.user
     const userId = user._id
@@ -21,7 +21,7 @@ const getUserResumesController = async (req, res) => {
   }
 }
 
-const createResumeController = async (req, res) => {
+export const createResumeController = async (req, res) => {
   try {
     const user = req.user
     const userId = user._id
@@ -54,7 +54,7 @@ const createResumeController = async (req, res) => {
   }
 }
 
-const deleteResumeController = async (req, res) => {
+export const deleteResumeController = async (req, res) => {
   try {
     const user = req.user
     const userId = user._id
@@ -80,7 +80,7 @@ const deleteResumeController = async (req, res) => {
   }
 }
 
-const getUserResumeByIdController = async (req, res) => {
+export const getUserResumeByIdController = async (req, res) => {
   try {
     const user = req.user
     const userId = user._id
@@ -117,7 +117,7 @@ const getUserResumeByIdController = async (req, res) => {
   }
 }
 
-const getResumeByPublicId = async (req, res) => {
+export const getResumeByPublicId = async (req, res) => {
   try {
     const { resumeId } = req.params
 
@@ -152,7 +152,7 @@ const getResumeByPublicId = async (req, res) => {
   }
 }
 
-const updateResumeController = async (req, res) => {
+export const updateResumeController = async (req, res) => {
   try {
     const user = req.user
     const userId = user._id
@@ -206,11 +206,4 @@ const updateResumeController = async (req, res) => {
   }
 }
 
-module.exports = {
-  getUserResumesController,
-  createResumeController,
-  deleteResumeController,
-  getUserResumeByIdController,
-  getResumeByPublicId,
-  updateResumeController
-}
+

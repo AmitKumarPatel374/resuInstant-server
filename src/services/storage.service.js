@@ -1,6 +1,6 @@
-const imagekit = require("imagekit");
+import ImageKit from "imagekit";
 
-const storageInstance = new imagekit({
+const storageInstance = new ImageKit({
   publicKey: process.env.IMAGEKIT_PUBLIC_KEY,
   privateKey: process.env.IMAGEKIT_PRIVATE_KEY,
   urlEndpoint: process.env.IMAGEKIT_URL,
@@ -21,4 +21,4 @@ const sendFilesToStorage = async (fileBuffer, fileName, removeBackground) => {
   });
 };
 
-module.exports = sendFilesToStorage;
+export default sendFilesToStorage;

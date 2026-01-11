@@ -1,27 +1,30 @@
-const jwt = require("jsonwebtoken");
-const cacheInstance = require("../services/cache.service");
-const UserModel = require("../models/User.model");
+import jwt from "jsonwebtoken";
+import cacheInstance from "../services/cache.service.js";
+import UserModel from "../models/User.model.js";
 
 const authMiddleware = async (req, res, next) => {
   try {
-    let token = req.cookies.token;
-    if (!token)
-      res.status(401).json({
+    const token = req.cookies?.token;
+
+    if (!token) {
+      return res.status(401).json({
         message: "Token not found",
       });
+    }
 
-    let isBlacklisted = await cacheInstance.get(token);
+    const isBlacklisted = await cacheInstance.get(token);
 
-    if (isBlacklisted)
-      return res.status(400).json({
+    if (isBlacklisted) {
+      return res.status(401).json({
         message: "Token blacklisted",
       });
+    }
 
-    let decode = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    let user = await UserModel.findById(decode.id).select("-password");
+    const user = await UserModel.findById(decoded.id).select("-password");
 
-    if (!user) {  
+    if (!user) {
       return res.status(404).json({
         message: "User not found",
       });
@@ -30,11 +33,12 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log("Error in middleware", error);
-  return res.status(401).json({
-    message: "Invalid or expired token",
-  });
+    console.error("Auth middleware error:", error);
+
+    return res.status(401).json({
+      message: "Invalid or expired token",
+    });
   }
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

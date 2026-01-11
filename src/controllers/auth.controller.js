@@ -1,8 +1,8 @@
-const UserModel = require("../models/User.model")
-const cacheInstance = require("../services/cache.service")
-const { getClearCookieOptions } = require("../utils/cookie.utils")
+import UserModel from "../models/User.model.js"
+import cacheInstance from "../services/cache.service.js"
+import { getClearCookieOptions } from "../utils/cookie.utils.js"
 
-const registerController = async (req, res) => {
+export const registerController = async (req, res) => {
   try {
     let { name, email, password } = req.body
 
@@ -48,7 +48,7 @@ const registerController = async (req, res) => {
   }
 }
 
-const loginController = async (req, res) => {
+export const loginController = async (req, res) => {
   try {
     let { email, password } = req.body
 
@@ -111,7 +111,7 @@ const loginController = async (req, res) => {
   }
 }
 
-const getUserById = async (req, res) => {
+export const getUserById = async (req, res) => {
   try {
     const user = req.user
 
@@ -124,7 +124,7 @@ const getUserById = async (req, res) => {
   }
 }
 
-const logoutController = async (req, res) => {
+export const logoutController = async (req, res) => {
   try {
     let token = req.cookies.token
 
@@ -150,7 +150,7 @@ const logoutController = async (req, res) => {
   }
 }
 
-const countUserController = async (req, res) => {
+export const countUserController = async (req, res) => {
   try {
     const userCount = await UserModel.countDocuments()
 
@@ -164,12 +164,4 @@ const countUserController = async (req, res) => {
       error: error,
     })
   }
-}
-
-module.exports = {
-  registerController,
-  loginController,
-  getUserById,
-  logoutController,
-  countUserController
 }

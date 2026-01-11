@@ -1,7 +1,7 @@
-const resumeModel = require("../models/resume.model")
-const ai = require("../services/ai.service")
+import resumeModel from "../models/resume.model.js";
+import ai from "../services/ai.service.js";
 
-const enhanceProfessionalSummaryController = async (req, res) => {
+export const enhanceProfessionalSummaryController = async (req, res) => {
   try {
     const { userContent } = req.body
     if (!userContent) {
@@ -43,7 +43,7 @@ const enhanceProfessionalSummaryController = async (req, res) => {
   }
 }
 
-const enhanceJobDescriptionController = async (req, res) => {
+export const enhanceJobDescriptionController = async (req, res) => {
   try {
     const { userContent } = req.body
     if (!userContent) {
@@ -91,7 +91,7 @@ function extractJson(text) {
   return JSON.parse(cleaned)
 }
 
-const uploadResumeController = async (req, res) => {
+export const uploadResumeController = async (req, res) => {
   try {
     const { resumeText, title } = req.body
     const user = req.user
@@ -256,7 +256,7 @@ const uploadResumeController = async (req, res) => {
   }
 }
 
-const enhanceFeedbackMessageController = async (req, res) => {
+export const enhanceFeedbackMessageController = async (req, res) => {
   try {
     const { userContent } = req.body
 
@@ -295,10 +295,3 @@ const enhanceFeedbackMessageController = async (req, res) => {
   }
 }
 
-
-module.exports = {
-  enhanceProfessionalSummaryController,
-  enhanceJobDescriptionController,
-  uploadResumeController,
-  enhanceFeedbackMessageController,
-}

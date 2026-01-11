@@ -1,10 +1,13 @@
-const express = require("express");
-const authMiddleware = require("../middlewares/auth.middleware");
-const { addFeedbackController, getAllFeedbackController } = require("../controllers/feedback.controller");
+import express from "express";
+import authMiddleware from "../middlewares/auth.middleware.js";
+import {
+  addFeedbackController,
+  getAllFeedbackController,
+} from "../controllers/feedback.controller.js";
 
 const router = express.Router();
 
-router.post("/", authMiddleware,addFeedbackController);
-router.get("/data",getAllFeedbackController);
+router.post("/", authMiddleware, addFeedbackController);
+router.get("/data", getAllFeedbackController);
 
-module.exports = router;
+export default router;
