@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import path from "path";
+import ejs from "ejs";
+import { fileURLToPath } from "url";
 
 // Database & Redis
 import connectDB from "./src/config/database/db.js";
@@ -21,6 +24,14 @@ const app = express();
 
 // DB connect
 connectDB();
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "/src/views"));
 
 // Middlewares
 app.use(cors({

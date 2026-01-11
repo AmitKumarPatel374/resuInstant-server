@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password | resuInstant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="flex items-center justify-center min-h-screen bg-gray-50 px-4 text-gray-800">
+    <!-- Card -->
+    <div class="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 w-full max-w-md">
+      <!-- Logo / Title -->
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-semibold text-gray-900">resuInstant</h1>
+        <p class="text-sm text-gray-500 mt-1">Reset your password</p>
+      </div>
+
+      <!-- Form -->
+      <form
+        action="http://localhost:3000/api/auth/update-Password/<%= id %>"
+        method="post"
+        class="flex flex-col gap-4"
+        id="resetForm"
+      >
+        <input
+          type="password"
+          name="password"
+          id="inp1"
+          placeholder="New password"
+          class="w-full h-11 px-4 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-green-500"
+          required
+        />
+
+        <input
+          type="password"
+          id="inp2"
+          placeholder="Confirm new password"
+          class="w-full h-11 px-4 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-green-500"
+          required
+        />
+
+        <button
+          id="btn"
+          type="submit"
+          class="mt-2 w-full h-11 rounded-lg bg-green-500 text-white font-medium hover:opacity-90 transition"
+        >
+          Reset Password
+        </button>
+      </form>
+
+      <!-- Helper Text -->
+      <p class="text-xs text-gray-500 mt-4 text-center">
+        Make sure both passwords match before submitting.
+      </p>
+    </div>
+
+    <!-- Script -->
+    <script>
+      const inp1 = document.getElementById("inp1");
+      const inp2 = document.getElementById("inp2");
+      const form = document.getElementById("resetForm");
+      const btn = document.getElementById("btn");
+
+      form.addEventListener("submit", (e) => {
+        if (inp1.value !== inp2.value) {
+          e.preventDefault();
+          alert("Passwords do not match");
+          return;
+        }
+
+        btn.innerText = "Updating...";
+        btn.disabled = true;
+      });
+    </script>
+  </body>
+</html>

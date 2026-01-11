@@ -9,6 +9,7 @@ import { sendContactUserEmail } from "../services/sendmail/sendContactUserEmail.
 import { sendThanksFeedbackEmail } from "../services/sendmail/sendThanksFeedbackEmail.js"
 import { sendVerifyEmailOtp } from "../services/sendmail/sendVerifyEmailOtp.js"
 import { sendWelcomeEmail } from "../services/sendmail/sendWelcomeEmail.js"
+import { sendForgotPasswordLinkEmail } from "../services/sendmail/sendForgotPasswordLinkEmail.js"
 
 new Worker(
   "email-queue",
@@ -22,6 +23,8 @@ new Worker(
       await sendVerifyEmailOtp(job.data)
     } else if (job.name === "welcome-email") {
       await sendWelcomeEmail(job.data)
+    } else if (job.name === "forgot-link") {
+      await sendForgotPasswordLinkEmail(job.data)
     } else {
       console.warn("⚠️ Unknown job type:", job.name)
     }

@@ -4,6 +4,7 @@ import { getClearCookieOptions } from "../utils/cookie.utils.js"
 import { emailQueue } from "../queues/emailQueue.js"
 import TempUser from "../models/tempUser.model.js"
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 export const registerController = async (req, res) => {
   try {
@@ -212,6 +213,112 @@ export const loginController = async (req, res) => {
     })
   } catch (error) {
     console.log("error in login->", error)
+    return res.status(500).json({
+      message: "Internal server error ",
+      error: error,
+    })
+  }
+}
+
+export const forgotPasswordController = async (req, res) => {
+  try {
+    let { email } = req.body
+
+    if (!email) {
+      return res.status(404).json({
+        message: "email not found",
+      })
+    }
+
+    let user = await UserModel.findOne({ email })
+
+    if (!user) {
+      return res.status(404).json({
+        message: "user not found",
+      })
+    }
+
+    const userName = user.name;
+
+    let resetToken = jwt.sign({ id: user._id }, process.env.JWT_RAW_SECRET, {
+      expiresIn: "5min",
+    })
+
+
+    // Use environment variable for reset link base URL
+    const baseUrl = process.env.SERVER_ORIGIN
+    let resetLink = `${baseUrl}/auth/reset-password/${resetToken}`
+
+
+     await emailQueue.add("forgot-link", {
+      email,
+      userName,
+      resetLink,
+    })
+
+    return res.status(201).json({
+      message: "reset link sended at your registered email!",
+    })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      message: "Internal server error ",
+      error: error,
+    })
+  }
+}
+
+export const resetPasswordController = async (req, res) => {
+  try {
+    let token = req.params.token
+    if (!token) {
+      return res.status(404).json({
+        message: "token not found",
+      })
+    }
+
+    let decode = jwt.verify(token, process.env.JWT_RAW_SECRET)
+
+    return res.render("index.ejs", { id: decode.id })
+  } catch (error) {
+    console.log(error)
+    return res.status(500).json({
+      message: "Internal server error ",
+      error: error,
+    })
+  }
+}
+
+export const updatePasswordController = async (req, res) => {
+  try {
+    let id = req.params.id
+    let { password } = req.body
+    if (!id) {
+      return res.status(404).json({
+        message: "id not found",
+      })
+    }
+
+    let hashPass = await bcrypt.hash(password, 11)
+
+    let updatedPassUser = await UserModel.findByIdAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        password: hashPass,
+      },
+      {
+        new: true,
+      }
+    )
+
+    return res.status(200).json({
+      message: "password updated successfully!",
+      upadatedUser: updatedPassUser,
+    })
+  } catch (error) {
+    console.log(error)
     return res.status(500).json({
       message: "Internal server error ",
       error: error,
