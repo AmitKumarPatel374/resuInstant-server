@@ -12,6 +12,7 @@ const resumeRoutes = require("./src/routes/resume.routes");
 const aiRoutes = require("./src/routes/ai.routes");
 const feedbackRoutes = require("./src/routes/feedback.routes");
 const emailRoutes = require("./src/routes/email.routes");
+const contactRoutes = require("./src/routes/contact.routes");
 
 const app = express();
 connectDB();
@@ -40,6 +41,7 @@ app.use("/api/resume", resumeRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/mail", emailRoutes);
+app.use("/api/contact", contactRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

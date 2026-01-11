@@ -2,7 +2,7 @@ const sendMail = require("../services/mail.service")
 const contactEmailTemplate = require("../utils/contact.email.template")
 const contactThanksEmailTemplate = require("../utils/contact.thanks.email")
 
-const contactMailController = async (req, res) => {
+const contacttttMailController = async (req, res) => {
   try {
     const { name, email, message } = req.body
 
@@ -46,4 +46,4 @@ const contactMailController = async (req, res) => {
   }
 }
 
-module.exports = {contactMailController}
+module.exports = {contacttttMailController}
