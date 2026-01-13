@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Reset Password | resuInstant</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
@@ -57,21 +60,21 @@
 
     <!-- Script -->
     <script>
-      const inp1 = document.getElementById("inp1");
-      const inp2 = document.getElementById("inp2");
-      const form = document.getElementById("resetForm");
-      const btn = document.getElementById("btn");
+      const inp1 = document.getElementById("inp1")
+      const inp2 = document.getElementById("inp2")
+      const form = document.getElementById("resetForm")
+      const btn = document.getElementById("btn")
 
       form.addEventListener("submit", (e) => {
         if (inp1.value !== inp2.value) {
-          e.preventDefault();
-          alert("Passwords do not match");
-          return;
+          e.preventDefault()
+          alert("Passwords do not match")
+          return
         }
 
-        btn.innerText = "Updating...";
-        btn.disabled = true;
-      });
+        btn.innerText = "Updating..."
+        btn.disabled = true
+      })
     </script>
   </body>
 </html>
